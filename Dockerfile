@@ -79,9 +79,12 @@ RUN mkdir -p /sd-models
 #   wget https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 #   wget https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
 #   wget https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors
-COPY sd_xl_base_1.0.safetensors /sd-models/sd_xl_base_1.0.safetensors
-COPY sd_xl_refiner_1.0.safetensors /sd-models/sd_xl_refiner_1.0.safetensors
-COPY sdxl_vae.safetensors /sd-models/sdxl_vae.safetensors
+# COPY sd_xl_base_1.0.safetensors /sd-models/sd_xl_base_1.0.safetensors
+# COPY sd_xl_refiner_1.0.safetensors /sd-models/sd_xl_refiner_1.0.safetensors
+# COPY sdxl_vae.safetensors /sd-models/sdxl_vae.safetensors
+RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
+RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
+RUN wget -O /sd-models/realvisxlV20-jcsla-style.safetensors https://cai-data-bucket.s3.ap-northeast-2.amazonaws.com/safetensors/realvisxlV20-jcsla-style.safetensors
 
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
 # and set version
@@ -109,6 +112,7 @@ RUN source /venv/bin/activate && \
 RUN source /venv/bin/activate && \
     python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_base_1.0.safetensors && \
     python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_refiner_1.0.safetensors && \
+    python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/realvisxlV20-jcsla-style.safetensors && \
     deactivate
 
 # Clone the Automatic1111 Extensions
@@ -270,6 +274,8 @@ COPY nginx/502.html /usr/share/nginx/html/502.html
 COPY nginx/README.md /usr/share/nginx/html/README.md
 
 WORKDIR /
+
+RUN wget https://cai-data-bucket.s3.ap-northeast-2.amazonaws.com/command/training.sh && chmod +x training.sh
 
 # Copy the scripts
 COPY --chmod=755 scripts/* ./
