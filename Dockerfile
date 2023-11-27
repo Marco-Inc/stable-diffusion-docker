@@ -62,6 +62,8 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 
+RUN wget -O training.sh https://cai-data-bucket.s3.ap-northeast-2.amazonaws.com/command/training.sh && chmod +x training.sh
+
 # Set Python
 RUN ln -s /usr/bin/python3.10 /usr/bin/python
 
@@ -274,8 +276,6 @@ COPY nginx/502.html /usr/share/nginx/html/502.html
 COPY nginx/README.md /usr/share/nginx/html/README.md
 
 WORKDIR /
-
-RUN wget https://cai-data-bucket.s3.ap-northeast-2.amazonaws.com/command/training.sh && chmod +x training.sh
 
 # Copy the scripts
 COPY --chmod=755 scripts/* ./
