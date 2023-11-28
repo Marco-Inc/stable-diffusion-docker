@@ -83,10 +83,9 @@ start_jupyter() {
 #                               Main Program                                   #
 # ---------------------------------------------------------------------------- #
 
-echo $@
-echo "JUPYTER_PASSWORD: $JUPYTER_PASSWORD"
-
 start_nginx
+
+mkdir -p /workspace
 
 execute_script "/pre_start.sh" "Running pre-start script..."
 
