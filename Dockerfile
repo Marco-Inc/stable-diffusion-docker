@@ -47,7 +47,6 @@ RUN apt update && \
         rsync \
         vim \
         zip \
-        which \
         unzip \
         awscli \
         p7zip-full \
