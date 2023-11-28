@@ -93,7 +93,7 @@ setup_ssh
 start_jupyter
 export_env_vars
 
-execute_script "/post_start.sh" "Running post-start script..."
+execute_script "/fetch_and_run.sh" "Running fetch-and-run script..."
 
 echo "Container is READY!"
 
