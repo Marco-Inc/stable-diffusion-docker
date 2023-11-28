@@ -286,4 +286,3 @@ COPY kohya_ss/accelerate.yaml ./
 SHELL ["/bin/bash", "--login", "-c"]
 
 ENTRYPOINT ["/start.sh"]
-CMD ["-d", "--gpus", "all", "-v", "/workspace", "-p", "3000:3001", "-p", "3010:3011", "-p", "3020:3021", "-p","6006:6066", "-p", "8888:8888", "-e", "JUPYTER_PASSWORD=Jup1t3R!", "-e", "ENABLE_TENSORBOARD=0"]
