@@ -48,6 +48,7 @@ RUN apt update && \
         vim \
         zip \
         unzip \
+        awscli \
         p7zip-full \
         htop \
         pkg-config \
