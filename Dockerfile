@@ -284,5 +284,5 @@ COPY kohya_ss/accelerate.yaml ./
 
 # Start the container
 SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "/start.sh" ]
-ENTRYPOINT ["/fetch_and_run.sh"]
+ENTRYPOINT [ "/start.sh" ]
+CMD ["/fetch_and_run.sh"]
