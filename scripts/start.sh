@@ -100,7 +100,7 @@ training() {
     aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
     aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
     aws s3 sync "${DESTINATION_FOLDER}" "s3://${S3_BUCKET}/${SOURCE_FOLDER}"
-}
+    
     mkdir -p /workspace/stable-diffusion-webui/models/Lora/model
     mkdir -p /workspace/stable-diffusion-webui/models/Lora/log
 
