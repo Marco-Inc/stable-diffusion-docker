@@ -96,15 +96,15 @@ training() {
     echo "${SOURCE_FOLDER}"
     echo "${DESTINATION_FOLDER}"
 
-    sudo yum remove awscli
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    unzip awscliv2.zip
-    chmod +x /aws/install
-    sudo /aws/install
-    mkdir -p "${DESTINATION_FOLDER}"
-    aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
-    aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
-    aws s3 sync "s3://${S3_BUCKET}/${SOURCE_FOLDER}" "${DESTINATION_FOLDER}"
+    # sudo yum remove awscli
+    # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    # unzip awscliv2.zip
+    # chmod +x /aws/install
+    # sudo /aws/install
+    # mkdir -p "${DESTINATION_FOLDER}"
+    # aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
+    # aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+    # aws s3 sync "s3://${S3_BUCKET}/${SOURCE_FOLDER}" "${DESTINATION_FOLDER}"
 
     mkdir -p /workspace/stable-diffusion-webui/models/Lora/model
     mkdir -p /workspace/stable-diffusion-webui/models/Lora/log
