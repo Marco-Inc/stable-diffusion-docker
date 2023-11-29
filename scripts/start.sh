@@ -96,16 +96,16 @@ training() {
     echo "${SOURCE_FOLDER}"
     echo "${DESTINATION_FOLDER}"
 
-    if ! command -v aws &> /dev/null; then
-        echo "AWS CLI가 설치되어 있지 않습니다. 설치를 진행합니다."
-        if command -v apt-get &> /dev/null; then
-            sudo apt-get install -y awscli
-        elif command -v yum &> /dev/null; then
-            sudo yum install -y aws-cli
-        else
-            echo "지원되지 않는 패키지 관리자입니다. 수동으로 AWS CLI를 설치해주세요."
-        fi
-    fi
+    # if ! command -v aws &> /dev/null; then
+    #     echo "AWS CLI가 설치되어 있지 않습니다. 설치를 진행합니다."
+    #     if command -v apt-get &> /dev/null; then
+    #         sudo apt-get install -y awscli
+    #     elif command -v yum &> /dev/null; then
+    #         sudo yum install -y aws-cli
+    #     else
+    #         echo "지원되지 않는 패키지 관리자입니다. 수동으로 AWS CLI를 설치해주세요."
+    #     fi
+    # fi
     if ! command -v aws &>/dev/null; then
         echo "AWS CLI가 설치되어 있지 않습니다. 설치합니다."
         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
