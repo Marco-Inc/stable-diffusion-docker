@@ -48,8 +48,6 @@ RUN apt update && \
         vim \
         zip \
         unzip \
-        python3-urllib3 \
-        awscli \
         p7zip-full \
         htop \
         pkg-config \

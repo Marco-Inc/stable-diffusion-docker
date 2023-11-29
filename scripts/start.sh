@@ -96,6 +96,7 @@ training() {
     echo "${SOURCE_FOLDER}"
     echo "${DESTINATION_FOLDER}"
 
+    sudo yum remove awscli
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
     chmod +x /aws/install
