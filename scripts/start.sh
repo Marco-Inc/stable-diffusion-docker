@@ -81,12 +81,16 @@ start_jupyter() {
 
 training() {
     echo "training"
-    USER_ID=$1
-    ALBUM_ID=$2
+    AWS_ACCESS_KEY_ID=$1
+    AWS_SECRET_ACCESS_KEY=$2
+    USER_ID=$3
+    ALBUM_ID=$4
     S3_BUCKET="cai-data-bucket"
     SOURCE_FOLDER="data/$USER_ID/$ALBUM_ID/cropped"
     DESTINATION_FOLDER="/workspace/stable-diffusion-webui/models/Lora/img/25_ssaemi dog"
 
+    aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
     aws s3 sync "s3://$S3_BUCKET/$SOURCE_FOLDER" "$DESTINATION_FOLDER"
 
     mkdir -p /workspace/stable-diffusion-webui/models/Lora/model
@@ -131,6 +135,6 @@ setup_ssh
 start_jupyter
 export_env_vars
 
-training "${USER_ID}" "${ALBUM_ID}"
+training "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" "${USER_ID}" "${ALBUM_ID}"
 
 generate "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" "${USER_ID}" "${ALBUM_ID}"
