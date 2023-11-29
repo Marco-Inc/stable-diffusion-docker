@@ -80,12 +80,10 @@ start_jupyter() {
 }
 
 training() {
+    echo "training"
+    USER_ID=$1
+    ALBUM_ID=$2
     S3_BUCKET="cai-data-bucket"
-
-    AWS_ACCESS_KEY_ID=$1
-    AWS_SECRET_ACCESS_KEY=$2
-    USER_ID=$3
-    ALBUM_ID=$4
     SOURCE_FOLDER="data/$USER_ID/$ALBUM_ID/cropped"
     DESTINATION_FOLDER="/workspace/stable-diffusion-webui/models/Lora/img/25_ssaemi dog"
 
@@ -98,19 +96,28 @@ training() {
 }
 
 generate() {
+    echo "generate"
     AWS_ACCESS_KEY_ID=$1
     AWS_SECRET_ACCESS_KEY=$2
     USER_ID=$3
     ALBUM_ID=$4
-
     git clone https://github.com/Marco-Inc/txt2img txt2img
     pip install -r txt2img/requirements.txt
-    python txt2img/main.py AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY USER_ID ALBUM_ID
+    python txt2img/main.py $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $USER_ID $ALBUM_ID
 }
 
 # ---------------------------------------------------------------------------- #
 #                               Main Program                                   #
 # ---------------------------------------------------------------------------- #
+
+AWS_ACCESS_KEY_ID=$1
+AWS_SECRET_ACCESS_KEY=$2
+USER_ID=$3
+ALBUM_ID=$4
+echo "${AWS_ACCESS_KEY_ID}"
+echo "${AWS_SECRET_ACCESS_KEY}"
+echo "${USER_ID}"
+echo "${ALBUM_ID}"
 
 start_nginx
 
@@ -124,6 +131,6 @@ setup_ssh
 start_jupyter
 export_env_vars
 
-training
+training "${USER_ID}" "${ALBUM_ID}"
 
-generate
+generate "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" "${USER_ID}" "${ALBUM_ID}"
