@@ -96,6 +96,8 @@ training() {
     echo "${SOURCE_FOLDER}"
     echo "${DESTINATION_FOLDER}"
     
+    pip install requests
+    pip install urllib3<2
     mkdir -p "${DESTINATION_FOLDER}"
     aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
     aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
