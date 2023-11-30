@@ -101,15 +101,15 @@ training() {
     # unzip awscliv2.zip
     # chmod +x /aws/install
     # sudo /aws/install
-    # mkdir -p "${DESTINATION_FOLDER}"
-    # aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
-    # aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
-    # aws s3 sync "s3://${S3_BUCKET}/${SOURCE_FOLDER}" "${DESTINATION_FOLDER}"
+    mkdir -p "${DESTINATION_FOLDER}"
+    aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}"
+    aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+    aws s3 sync "s3://${S3_BUCKET}/${SOURCE_FOLDER}" "${DESTINATION_FOLDER}"
 
     mkdir -p /workspace/stable-diffusion-webui/models/Lora/model
     mkdir -p /workspace/stable-diffusion-webui/models/Lora/log
 
-    accelerate launch --num_cpu_threads_per_process=2 "./sdxl_train_network.py" --enable_bucket --min_bucket_reso=256 --max_bucket_reso=2048 --pretrained_model_name_or_path="/workspace/stable-diffusion-webui/models/Stable-diffusion/realvisxlV20-jcsla-style.safetensors" --train_data_dir="/workspace/stable-diffusion-webui/models/Lora/img" --resolution="1024,1024" --output_dir="/workspace/stable-diffusion-webui/models/Lora/model" --logging_dir="/workspace/stable-diffusion-webui/models/Lora/log" --network_alpha="1" --save_model_as=safetensors --network_module=networks.lora --text_encoder_lr=0.0004 --unet_lr=0.0004 --network_dim=32 --output_name="ssaemi" --lr_scheduler_num_cycles="8" --no_half_vae --full_bf16 --learning_rate="0.0004" --lr_scheduler="constant" --train_batch_size="1" --save_every_n_epochs="1" --mixed_precision="bf16" --save_precision="bf16" --caption_extension=".txt" --cache_latents --cache_latents_to_disk --optimizer_type="Adafactor" --optimizer_args scale_parameter=False relative_step=False warmup_init=False --max_data_loader_n_workers="0" --bucket_reso_steps=64 --gradient_checkpointing --xformers --bucket_no_upscale --noise_offset=0.0
+    accelerate launch --num_cpu_threads_per_process=2 "/kohya_ss/sdxl_train_network.py" --enable_bucket --min_bucket_reso=256 --max_bucket_reso=2048 --pretrained_model_name_or_path="/workspace/stable-diffusion-webui/models/Stable-diffusion/realvisxlV20-jcsla-style.safetensors" --train_data_dir="/workspace/stable-diffusion-webui/models/Lora/img" --resolution="1024,1024" --output_dir="/workspace/stable-diffusion-webui/models/Lora/model" --logging_dir="/workspace/stable-diffusion-webui/models/Lora/log" --network_alpha="1" --save_model_as=safetensors --network_module=networks.lora --text_encoder_lr=0.0004 --unet_lr=0.0004 --network_dim=32 --output_name="ssaemi" --lr_scheduler_num_cycles="8" --no_half_vae --full_bf16 --learning_rate="0.0004" --lr_scheduler="constant" --train_batch_size="1" --save_every_n_epochs="1" --mixed_precision="bf16" --save_precision="bf16" --caption_extension=".txt" --cache_latents --cache_latents_to_disk --optimizer_type="Adafactor" --optimizer_args scale_parameter=False relative_step=False warmup_init=False --max_data_loader_n_workers="0" --bucket_reso_steps=64 --gradient_checkpointing --xformers --bucket_no_upscale --noise_offset=0.0
 }
 
 generate() {

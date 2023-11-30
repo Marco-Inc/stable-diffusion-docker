@@ -65,6 +65,8 @@ RUN apt update && \
 # Set Python
 RUN ln -s /usr/bin/python3.10 /usr/bin/python
 
+RUN pip3 install boto3
+
 # Install Torch, xformers and tensorrt
 RUN pip3 install --no-cache-dir torch==2.0.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
     pip3 install --no-cache-dir xformers==0.0.22 tensorrt
