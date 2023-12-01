@@ -109,7 +109,7 @@ generate() {
     ALBUM_ID=$4
     git clone https://github.com/Marco-Inc/txt2img txt2img
     pip install -r txt2img/requirements.txt
-    python txt2img/main.py "${$AWS_ACCESS_KEY_ID}" "${$AWS_SECRET_ACCESS_KEY}" "${$USER_ID}" "${$ALBUM_ID}"
+    python txt2img/main.py "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" "${USER_ID}" "${ALBUM_ID}"
 }
 
 # ---------------------------------------------------------------------------- #
