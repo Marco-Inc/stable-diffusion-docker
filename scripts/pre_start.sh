@@ -47,9 +47,9 @@ fi
 #     ln -s /sd-models/sd_xl_refiner_1.0.safetensors /workspace/stable-diffusion-webui/models/Stable-diffusion/sd_xl_refiner_1.0.safetensors
 # fi
 
-if [[ ! -L /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors ]]; then
-    ln -s /sd-models/sdxl_vae.safetensors /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors
-fi
+# if [[ ! -L /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors ]]; then
+#     ln -s /sd-models/sdxl_vae.safetensors /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors
+# fi
 
 if [[ ! -L /workspace/stable-diffusion-webui/models/realvisxlV20-jcsla-style.safetensors ]]; then
     ln -s /sd-models/realvisxlV20-jcsla-style.safetensors /workspace/stable-diffusion-webui/models/realvisxlV20-jcsla-style.safetensors
