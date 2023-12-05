@@ -86,8 +86,8 @@ RUN mkdir -p /sd-models
 # COPY sd_xl_refiner_1.0.safetensors /sd-models/sd_xl_refiner_1.0.safetensors
 # COPY sdxl_vae.safetensors /sd-models/sdxl_vae.safetensors
 RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
-RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
-RUN wget -P /sd-models/ https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors
+# RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
+# RUN wget -P /sd-models/ https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors
 RUN wget -O /sd-models/realvisxlV20-jcsla-style.safetensors https://cai-data-bucket.s3.ap-northeast-2.amazonaws.com/safetensors/realvisxlV20-jcsla-style.safetensors
 
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
@@ -115,7 +115,7 @@ RUN source /venv/bin/activate && \
 # SDXL models result in OOM kills with 8GB system memory, probably need 12GB+ to cache these
 RUN source /venv/bin/activate && \
     python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_base_1.0.safetensors && \
-    python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_refiner_1.0.safetensors && \
+    # python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_refiner_1.0.safetensors && \
     python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/realvisxlV20-jcsla-style.safetensors && \
     deactivate
 
@@ -182,11 +182,11 @@ RUN mkdir -p /stable-diffusion-webui/models/insightface && \
 RUN echo "CUDA" > /stable-diffusion-webui/extensions/sd-webui-reactor/last_device.txt
 
 # Fix Tensorboard
-RUN source /venv/bin/activate && \
-    pip3 uninstall -y tensorboard tb-nightly && \
-    pip3 install tensorboard tensorflow && \
-    pip3 cache purge && \
-    deactivate
+# RUN source /venv/bin/activate && \
+#     pip3 uninstall -y tensorboard tb-nightly && \
+#     pip3 install tensorboard tensorflow && \
+#     pip3 cache purge && \
+#     deactivate
 
 # Install Kohya_ss
 RUN git clone https://github.com/bmaltais/kohya_ss.git /kohya_ss
@@ -209,36 +209,36 @@ RUN git checkout ${KOHYA_VERSION} && \
     deactivate
 
 # Install ComfyUI
-RUN git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
-WORKDIR /ComfyUI
-RUN python3 -m venv --system-site-packages venv && \
-    source venv/bin/activate && \
-    pip3 install --no-cache-dir torch==2.0.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
-    pip3 install --no-cache-dir xformers==0.0.22 && \
-    pip3 install -r requirements.txt && \
-    deactivate
+# RUN git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
+# WORKDIR /ComfyUI
+# RUN python3 -m venv --system-site-packages venv && \
+#     source venv/bin/activate && \
+#     pip3 install --no-cache-dir torch==2.0.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+#     pip3 install --no-cache-dir xformers==0.0.22 && \
+#     pip3 install -r requirements.txt && \
+#     deactivate
 
 # Install ComfyUI Custom Nodes
-RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git custom_nodes/ComfyUI-Manager && \
-    cd custom_nodes/ComfyUI-Manager && \
-    source /ComfyUI/venv/bin/activate && \
-    pip3 install -r requirements.txt && \
-    pip3 cache purge && \
-    deactivate
+# RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git custom_nodes/ComfyUI-Manager && \
+#     cd custom_nodes/ComfyUI-Manager && \
+#     source /ComfyUI/venv/bin/activate && \
+#     pip3 install -r requirements.txt && \
+#     pip3 cache purge && \
+#     deactivate
 
 # Install Application Manager
-WORKDIR /
-RUN git clone https://github.com/ashleykleynhans/app-manager.git /app-manager && \
-    cd /app-manager && \
-    npm install
+# WORKDIR /
+# RUN git clone https://github.com/ashleykleynhans/app-manager.git /app-manager && \
+#     cd /app-manager && \
+#     npm install
 
 # Install Jupyter
-WORKDIR /
-RUN pip3 install -U --no-cache-dir jupyterlab \
-        jupyterlab_widgets \
-        ipykernel \
-        ipywidgets \
-        gdown
+# WORKDIR /
+# RUN pip3 install -U --no-cache-dir jupyterlab \
+#         jupyterlab_widgets \
+#         ipykernel \
+#         ipywidgets \
+#         gdown
 
 # Install rclone
 RUN curl https://rclone.org/install.sh | bash
@@ -267,7 +267,7 @@ COPY a1111/relauncher.py a1111/webui-user.sh a1111/config.json a1111/ui-config.j
 ADD https://raw.githubusercontent.com/Douleb/SDXL-750-Styles-GPT4-/main/styles.csv /stable-diffusion-webui/styles.csv
 
 # Copy ComfyUI Extra Model Paths (to share models with A1111)
-COPY comfyui/extra_model_paths.yaml /ComfyUI/
+# COPY comfyui/extra_model_paths.yaml /ComfyUI/
 
 # Remove existing SSH host keys
 RUN rm -f /etc/ssh/ssh_host_*

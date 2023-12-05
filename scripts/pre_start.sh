@@ -19,14 +19,14 @@ rsync -au /kohya_ss/ /workspace/kohya_ss/
 rm -rf /kohya_ss
 
 # Sync ComfyUI to workspace to support Network volumes
-echo "Syncing ComfyUI to workspace, please wait..."
-rsync -au /ComfyUI/ /workspace/ComfyUI/
-rm -rf /ComfyUI
+# echo "Syncing ComfyUI to workspace, please wait..."
+# rsync -au /ComfyUI/ /workspace/ComfyUI/
+# rm -rf /ComfyUI
 
 # Sync Application Manager to workspace to support Network volumes
-echo "Syncing Application Manager to workspace, please wait..."
-rsync -au /app-manager/ /workspace/app-manager/
-rm -rf /app-manager
+# echo "Syncing Application Manager to workspace, please wait..."
+# rsync -au /app-manager/ /workspace/app-manager/
+# rm -rf /app-manager
 
 # Fix the venvs to make them work from /workspace
 echo "Fixing Stable Diffusion Web UI venv..."
@@ -35,21 +35,21 @@ echo "Fixing Stable Diffusion Web UI venv..."
 echo "Fixing Kohya_ss venv..."
 /fix_venv.sh /kohya_ss/venv /workspace/kohya_ss/venv
 
-echo "Fixing ComfyUI venv..."
-/fix_venv.sh /ComfyUI/venv /workspace/ComfyUI/venv
+# echo "Fixing ComfyUI venv..."
+# /fix_venv.sh /ComfyUI/venv /workspace/ComfyUI/venv
 
 # Link models and VAE if they are not already linked
 if [[ ! -L /workspace/stable-diffusion-webui/models/Stable-diffusion/sd_xl_base_1.0.safetensors ]]; then
     ln -s /sd-models/sd_xl_base_1.0.safetensors /workspace/stable-diffusion-webui/models/Stable-diffusion/sd_xl_base_1.0.safetensors
 fi
 
-if [[ ! -L /workspace/stable-diffusion-webui/models/Stable-diffusion/sd_xl_refiner_1.0.safetensors ]]; then
-    ln -s /sd-models/sd_xl_refiner_1.0.safetensors /workspace/stable-diffusion-webui/models/Stable-diffusion/sd_xl_refiner_1.0.safetensors
-fi
+# if [[ ! -L /workspace/stable-diffusion-webui/models/Stable-diffusion/sd_xl_refiner_1.0.safetensors ]]; then
+#     ln -s /sd-models/sd_xl_refiner_1.0.safetensors /workspace/stable-diffusion-webui/models/Stable-diffusion/sd_xl_refiner_1.0.safetensors
+# fi
 
-if [[ ! -L /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors ]]; then
-    ln -s /sd-models/sdxl_vae.safetensors /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors
-fi
+# if [[ ! -L /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors ]]; then
+#     ln -s /sd-models/sdxl_vae.safetensors /workspace/stable-diffusion-webui/models/VAE/sdxl_vae.safetensors
+# fi
 
 if [[ ! -L /workspace/stable-diffusion-webui/models/realvisxlV20-jcsla-style.safetensors ]]; then
     ln -s /sd-models/realvisxlV20-jcsla-style.safetensors /workspace/stable-diffusion-webui/models/realvisxlV20-jcsla-style.safetensors
@@ -64,8 +64,8 @@ mv /accelerate.yaml /root/.cache/huggingface/accelerate/default_config.yaml
 mkdir -p /workspace/logs
 
 # Start application manager
-cd /workspace/app-manager
-npm start > /workspace/logs/app-manager.log 2>&1 &
+# cd /workspace/app-manager
+# npm start > /workspace/logs/app-manager.log 2>&1 &
 
 if [[ ${DISABLE_AUTOLAUNCH} ]]
 then

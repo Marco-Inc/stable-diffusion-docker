@@ -130,7 +130,7 @@ execute_script "/pre_start.sh" "Running pre-start script..."
 echo "Pod Started"
 
 setup_ssh
-start_jupyter
+# start_jupyter
 export_env_vars
 
 training "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" "${USER_ID}" "${ALBUM_ID}"
