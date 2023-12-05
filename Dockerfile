@@ -86,7 +86,8 @@ RUN mkdir -p /sd-models
 # COPY sd_xl_refiner_1.0.safetensors /sd-models/sd_xl_refiner_1.0.safetensors
 # COPY sdxl_vae.safetensors /sd-models/sdxl_vae.safetensors
 RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
-# RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
+RUN wget -P /sd-models/ https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
+RUN wget -P /sd-models/ https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors
 RUN wget -O /sd-models/realvisxlV20-jcsla-style.safetensors https://cai-data-bucket.s3.ap-northeast-2.amazonaws.com/safetensors/realvisxlV20-jcsla-style.safetensors
 
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
@@ -114,7 +115,7 @@ RUN source /venv/bin/activate && \
 # SDXL models result in OOM kills with 8GB system memory, probably need 12GB+ to cache these
 RUN source /venv/bin/activate && \
     python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_base_1.0.safetensors && \
-    # python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_refiner_1.0.safetensors && \
+    python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_refiner_1.0.safetensors && \
     python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/realvisxlV20-jcsla-style.safetensors && \
     deactivate
 
